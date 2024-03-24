@@ -34,8 +34,7 @@ spec:
           configMap:
             name: mysql-initdb-config
         - name: mysql-data
-          persistentVolumeClaim:
-            claimName: mysql-pv-claim
+          emptyDir: {}
 
 
 # apiVersion: apps/v1
