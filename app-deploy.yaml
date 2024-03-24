@@ -23,8 +23,6 @@ spec:
           env:
             - name: db_root_password
               value: root
-            - name: db_name
-              value: employees
 ---
 apiVersion: v1
 kind: Service
