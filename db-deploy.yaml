@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
+  name: db
   labels:
     app: db
 spec:
@@ -15,7 +15,7 @@ spec:
         app: db
     spec:
       containers:
-      - name: mysql
+      - name: db
         image: mysql:8.0
         env:
         - name: MYSQL_ROOT_PASSWORD
@@ -82,7 +82,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: db
   labels:
     app: db
 spec:
