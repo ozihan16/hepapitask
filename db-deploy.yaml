@@ -1,39 +1,3 @@
-# ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: mysql
-#   labels:
-#     app: db
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: db
-#   template:
-#     metadata:
-#       labels:
-#         app: db
-#     spec:
-#       containers:
-#       - name: mysql
-#         image: mysql:8.0
-#         env:
-#         - name: MYSQL_ROOT_PASSWORD
-#           value: root
-#         ports:
-#         - containerPort: 3306
-#           name: db-container
-#         volumeMounts:
-#           - name: mysql-persistent-storage
-#             mountPath: /var/lib/mysql
-#           - name: mysql-db-storage
-#             mountPath: /docker-entrypoint-initdb.d/init.sql
-#       volumes:
-#         - name: mysql-persistent-storage
-#           persistentVolumeClaim:
-#             claimName: mysql-pv-claim
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -51,17 +15,14 @@ spec:
         app: db
     spec:
       containers:
-        - name: mysql
-          image: mysql:5.7
-          ports:
-            - containerPort: 3306
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: root
-              # valueFrom:
-              #   secretKeyRef:
-              #     name: mysql-secrets
-              #     key: ROOT_PASSWORD
+      - name: mysql
+        image: mysql:8.0
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        ports:
+        - containerPort: 3306
+          name: db-container
           volumeMounts:
             - name: mysql-initdb
               mountPath: /docker-entrypoint-initdb.d
@@ -75,6 +36,49 @@ spec:
         - name: mysql-data
           persistentVolumeClaim:
             claimName: mysql-pv-claim
+
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: mysql
+#   labels:
+#     app: db
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: db
+#   template:
+#     metadata:
+#       labels:
+#         app: db
+#     spec:
+#       containers:
+#         - name: mysql
+#           image: mysql:5.7
+#           ports:
+#             - containerPort: 3306
+#           env:
+#             - name: MYSQL_ROOT_PASSWORD
+#               value: root
+#               # valueFrom:
+#               #   secretKeyRef:
+#               #     name: mysql-secrets
+#               #     key: ROOT_PASSWORD
+#           volumeMounts:
+#             - name: mysql-initdb
+#               mountPath: /docker-entrypoint-initdb.d
+#             - mountPath: "/var/lib/mysql"
+#               subPath: "mysql"
+#               name: mysql-data
+#       volumes:
+#         - name: mysql-initdb
+#           configMap:
+#             name: mysql-initdb-config
+#         - name: mysql-data
+#           persistentVolumeClaim:
+#             claimName: mysql-pv-claim
 
 ---
 apiVersion: v1
