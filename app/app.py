@@ -39,7 +39,7 @@ def employee_data():
 
 @app.route('/')
 def index():
-    write_to_employee_data("Siddharth Sharma","Analyst")
+    write_to_employee_data("Veysel FARUK","Solution Architect")
     return jsonify({'Employee Data': employee_data()})
 
 

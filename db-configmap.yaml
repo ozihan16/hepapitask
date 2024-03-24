@@ -15,5 +15,6 @@ data:
     INSERT INTO employee_data
       (Employee_Name, Title)
     VALUES
-      ('oguzhan ALTINOLUK', 'Devops'),
-      ('Samet Ustaoglu', 'Devops');
+      ('Oguzhan ALTINOLUK', 'Devops Engineer'),
+      ('Samet USTAOGLU', 'Devops Engineer');
+      ('HEPAPI', 'Company');
