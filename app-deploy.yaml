@@ -33,7 +33,7 @@ spec:
   - port: 5001
     protocol: TCP
     targetPort: 5000
-    nodePort: 32222
+    nodePort: 32223
   selector:
     app: flaskapi
   type: NodePort
