@@ -1,8 +1,14 @@
 pipeline {
     agent any
+    parameters {
+    choice (name: "TARGET_NAMESPACE", choices: ["dev", "prod"], description: "Select the targert namespace" )    
+    }
     environment {
-        DOC_REGISTRY="ozidochub"
-        APP_REPO_NAME="hepapi"
+        KUBE_NAMESPACE = "${TARGET_NAMESPACE}"
+        DOC_REGISTRY = "ozidochub"
+        APP_REPO_NAME = "hepapi"
+        DOCKERHUB_CRED = credentials ("dochub")
+        //KUBECONFIG = credentials ("multipass2")
 
     }
     stages {
@@ -23,19 +29,26 @@ pipeline {
         }
         stage('Login and Push Image to Dockerhub') {
             steps {
-                sh 'docker login --username ${CREDS_USR} --password ${CREDS_PSW}'
+                sh 'echo $DOCKERHUB_CRED_PSW | docker login -u $DOCKERHUB_CRED_USR --password-stdin'
                 sh 'docker push "$DOC_REGISTRY/$APP_REPO_NAME:latest"'
             }
         }
+        
+        //withCredentials([usernamePassword(credentialsId: '<credentials-id>', passwordVariable: 'password', usernameVariable: 'username')]) {
+            //sh "docker login -u $username -p $password ..."
+        //}
         stage('Deploy to Kubernetes Cluster') {
             steps {
-                sh 'cd /var/lib/jenkins/workspace/hepapi/hepapitask'
-                sh 'pwd'
-                sh 'kubectl delete -f /hepapitask/db-deploy.yaml || true'
-                sh 'kubectl delete -f /hepapitask/app-deploy.yaml || true'
-                sh 'kubectl apply -f /hepapitask/db-configmap.yaml'
-                sh 'kubectl apply -f /hepapitask/db-deploy.yaml'
-                sh 'kubectl apply -f /hepapitask/app-deploy.yaml'
+                sh script:'''
+                    cd /var/lib/jenkins/workspace/hepapi/hepapitask
+                    pwd
+                    kubectl create namespace ${KUBE_NAMESPACE} || true
+                    kubectl delete -f db-deploy.yaml -n ${KUBE_NAMESPACE} || true
+                    kubectl delete -f app-deploy.yaml -n ${KUBE_NAMESPACE} || true
+                    kubectl apply -f db-configmap.yaml -n ${KUBE_NAMESPACE}
+                    kubectl apply -f db-deploy.yaml -n ${KUBE_NAMESPACE}
+                    kubectl apply -f app-deploy.yaml -n ${KUBE_NAMESPACE}
+                '''
             }
         }
 
