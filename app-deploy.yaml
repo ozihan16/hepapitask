@@ -36,4 +36,4 @@ spec:
     nodePort: 32222
   selector:
     app: flaskapi
-  type: NodePortß
+  type: NodePort
