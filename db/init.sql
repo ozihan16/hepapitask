@@ -9,5 +9,5 @@ CREATE TABLE employee_data (
 INSERT INTO employee_data
   (Employee_Name, Title)
 VALUES
-  ('oguzhan ALTINOLUK', 'Devops'),
+  ('Oguzhan Altınoluk', 'Devops'),
   ('Samet Ustaoglu', 'Devops');
