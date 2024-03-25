@@ -33,10 +33,7 @@ pipeline {
                 sh 'docker push "$DOC_REGISTRY/$APP_REPO_NAME:latest"'
             }
         }
-        
-        //withCredentials([usernamePassword(credentialsId: '<credentials-id>', passwordVariable: 'password', usernameVariable: 'username')]) {
-            //sh "docker login -u $username -p $password ..."
-        //}
+ 
         stage('Deploy to Kubernetes Cluster') {
             steps {
                 sh script:'''
