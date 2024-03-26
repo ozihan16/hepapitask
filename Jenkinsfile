@@ -48,7 +48,7 @@ pipeline {
                     then 
                         sed -i 's/nodePort: 32222/nodePort: 32223/g' app-deploy.yaml
                     else
-                        kubectl apply -f app-deploy.yaml -n ${KUBE_NAMESPACE}
+                        kubectl apply -f app-deploy.yaml -n "${KUBE_NAMESPACE}"
                     fi
                 '''
             }
