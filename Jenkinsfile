@@ -36,7 +36,8 @@ pipeline {
  
         stage('Deploy to Kubernetes Cluster') {
             steps {
-                sh script:'''
+                script
+                  sh ''' 
                     cd /var/lib/jenkins/workspace/hepapi/hepapitask
                     pwd
                     kubectl create namespace ${KUBE_NAMESPACE} || true
@@ -44,11 +45,11 @@ pipeline {
                     kubectl delete -f app-deploy.yaml -n ${KUBE_NAMESPACE} || true
                     kubectl apply -f db-configmap.yaml -n ${KUBE_NAMESPACE}
                     kubectl apply -f db-deploy.yaml -n ${KUBE_NAMESPACE}
-                '''
-                if ( "${KUBE_NAMESPACE}" == "prod" ) { 
+                  '''
+                  if ( "${KUBE_NAMESPACE}" == "prod" ) { 
                     sh "sed -i 's/nodePort: 32222/nodePort: 32223/g' app-deploy.yaml"
-                }
-                sh "kubectl apply -f app-deploy.yaml -n ${KUBE_NAMESPACE}"
+                  }
+                  sh "kubectl apply -f app-deploy.yaml -n ${KUBE_NAMESPACE}"
             }
         }
 
