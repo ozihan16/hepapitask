@@ -49,8 +49,6 @@ pipeline {
                     sh "sed -i 's/nodePort: 32222/nodePort: 32223/g' app-deploy.yaml"
                 }
                 sh "kubectl apply -f app-deploy.yaml -n ${KUBE_NAMESPACE}"
-                    
-                '''
             }
         }
 
