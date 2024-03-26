@@ -44,9 +44,9 @@ pipeline {
                     kubectl delete -f app-deploy.yaml -n ${KUBE_NAMESPACE} || true
                     kubectl apply -f db-configmap.yaml -n ${KUBE_NAMESPACE}
                     kubectl apply -f db-deploy.yaml -n ${KUBE_NAMESPACE}
-                    if (params.prod); then
-                        sh "sed -i 's/nodePort: 32222/nodePort: 32223/g' app-deploy.yaml"
-                    fi
+                    switch(params.TARGET_NAMESPACE) {
+                        case "prod": sed -i 's/nodePort: 32222/nodePort: 32223/g' app-deploy.yaml
+                    }
                     kubectl apply -f app-deploy.yaml -n "${KUBE_NAMESPACE}"
                 '''
             }
