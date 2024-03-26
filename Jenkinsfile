@@ -45,8 +45,9 @@ pipeline {
                     kubectl apply -f db-configmap.yaml -n ${KUBE_NAMESPACE}
                     kubectl apply -f db-deploy.yaml -n ${KUBE_NAMESPACE}
                 '''
-                if [ "${KUBE_NAMESPACE}" == "prod" ]; then 
+                if ( "${KUBE_NAMESPACE}" == "prod" ) { 
                     sed -i 's/nodePort: 32222/nodePort: 32223/g' app-deploy.yaml
+                }
                 sh "kubectl apply -f app-deploy.yaml -n ${KUBE_NAMESPACE}"
                     
                 '''
