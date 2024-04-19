@@ -1,5 +1,5 @@
 # hepapitask
-HEPAPİ DevOps Pozisyonu İçin Verilen Task Çalışma Raporu
+DevOps Pozisyonu İçin Verilen Task Çalışma Raporu
 Hazırlayan: Devops Engineer Oğuzhan Altınoluk
 
 
