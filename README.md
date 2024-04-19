@@ -1,4 +1,4 @@
-# hepapitask
+# ozitask
 DevOps Pozisyonu İçin Verilen Task Çalışma Raporu
 Hazırlayan: Devops Engineer Oğuzhan Altınoluk
 
