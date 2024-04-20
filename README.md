@@ -35,7 +35,7 @@ Dockerhub üzerine oluşturulan imajın gönderilmesi ve çekilebilmesi için cr
 Freestyle ve pipeline projeleri oluşturuldu.
 
 Github hesabında yapılan işlemler:
-Bahse konu uygulama, dockerfile ve docker-compose ile manifest (app ve db ye ait deployment ve service) dosyaları oluşturularak https://github.com/ozihan16/hepapitask reposuna eklendi. 
+Bahse konu uygulama, dockerfile ve docker-compose ile manifest (app ve db ye ait deployment ve service) dosyaları oluşturularak https://github.com/ozihan16/ozitask reposuna eklendi. 
 Jenkins pipeline job’ın tetiklenmesi için webhook oluşturuldu. (Ancak jenkins localde çalıştığı için githubdan localdeki sunucuya yönlendirme yapılması amacıyla ngrok gibi toolların kullanılması gerekmektedir)
 
 
